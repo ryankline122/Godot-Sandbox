@@ -19,6 +19,54 @@ public partial class sprite_2d : Sprite2D
 		this.MovedWithArgument += on_moved;	
 	}
 
+	/*
+		User Input:
+
+		How It Works
+			- Input Event Flow: 
+				In Godot, input events are propagated through the scene tree, 
+				starting from the root node. Each node has the opportunity to "consume" the event 
+				by marking it as handled. If a node handles the event (e.g., by using the _input(event) 
+				function), it will not propagate further.
+			- Unhandled Input: 
+				If an input event goes through the entire scene tree without being consumed, it reaches 
+				unhandled_input. This function can be overridden in any node to catch these unhandled 
+				events.
+
+		When to Use unhandled_input
+			- Global Shortcuts: 
+				It's ideal for global actions like opening a pause menu with the escape button. 
+				Since it only receives events that were not consumed by any other node, it ensures 
+				that your pause functionality won't interfere with other input-handling nodes.
+			- Fallback Input Handling: 
+				In complex scenes where input might be handled differently depending on the context 
+				(e.g., different UI panels, game modes), unhandled_input can serve as a catch-all for 
+				inputs that don't have a specific handler elsewhere.
+			- Camera Controls or Background Actions: 
+				For actions that should be available regardless of the player's current interaction, 
+				such as camera zoom or background music adjustment.
+	*/
+
+	// If we use this, the sprite will move when we try clicking the button
+	// public override void _Input(InputEvent @event)
+	// {
+	// 	  if (@event is InputEventMouseButton me) {
+	// 		if (me.Pressed) {
+	// 			this.Position = me.GlobalPosition;
+	// 		}
+	// 	  }
+	// }
+
+	// This will not move the sprite when clicking GUI button
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		  if (@event is InputEventMouseButton me) {
+			if (me.Pressed) {
+				this.Position = me.GlobalPosition;
+			}
+		  }
+	}
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
@@ -42,12 +90,10 @@ public partial class sprite_2d : Sprite2D
 	}
 
 	void on_timeout() {
-		// GD.Print("on_timeout called");
 		float randX = (float)GD.RandRange(0, 500);
 		float randY = (float)GD.RandRange(0, 500);
 		this.Position = new Vector2(randX, randY);
 		this.EmitSignal("MovedWithArgument", randX, randY);
-		//This is the same name as your Signal, just remove "EventHandler" from the end. 
 	}
 
 	void on_moved(float x, float y) {

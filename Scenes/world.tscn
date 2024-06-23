@@ -1,11 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhd3k6ier06mm"]
+[gd_scene load_steps=5 format=3 uid="uid://bhd3k6ier06mm"]
 
 [ext_resource type="PackedScene" uid="uid://brqjb0fyr2lh5" path="res://Scenes/sprite_2d.tscn" id="1_43wmh"]
 [ext_resource type="Script" path="res://Scripts/world.cs" id="1_e5coi"]
 [ext_resource type="Texture2D" uid="uid://bk712gl7dqvjc" path="res://Assets/icon.svg" id="3_4vdf4"]
+[ext_resource type="Script" path="res://Scripts/Button.cs" id="4_am2lp"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_e5coi")
 
 [node name="Player" parent="." instance=ExtResource("1_43wmh")]
 texture = ExtResource("3_4vdf4")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 13.0
+offset_top = 6.0
+offset_right = 99.0
+offset_bottom = 37.0
+text = "Some text"
+script = ExtResource("4_am2lp")

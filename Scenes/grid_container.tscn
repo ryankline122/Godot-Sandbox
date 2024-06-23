@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://deryd8jp0t02w"]
+
+[node name="PanelContainer" type="PanelContainer"]
+offset_right = 541.0
+offset_bottom = 219.0
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "First name:"
+
+[node name="LineEdit" type="LineEdit" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Last name:"
+
+[node name="LineEdit2" type="LineEdit" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
